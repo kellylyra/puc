@@ -1,9 +1,10 @@
 # Entrega orquestracao - KellyLyra
 
 ## Código da DAG1
-
+https://github.com/kellylyra/puc/blob/master/dag1.py
 
 ## Código da DAG2
+https://github.com/kellylyra/puc/blob/master/dag2.py
 
 ## Imagem (PNG, JPG) com o print da tabela 1 no log
 ![tabela final-dag1](/imagens/resultadofinal_dag1.png "tabela final-dag1")
