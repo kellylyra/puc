@@ -111,12 +111,3 @@ def trabalho2_dag1():
     [ind_tp,ind_mp,ind_ts] >> me >> trigger_dag2 >> fim
 
 execucao = trabalho2_dag1()
-    
-#
-# python_callable=lambda(context, dag_run_obj):dag_run_obj,
-
-# trigger = TriggerDagRunOperator(
-#         task_id="test_trigger_dagrun",
-#         trigger_dag_id="example_trigger_target_dag",  # Ensure this equals the dag_id of the DAG to trigger
-#         conf={"message": "Hello World"},
-#     )
