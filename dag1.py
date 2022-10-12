@@ -3,8 +3,8 @@ import functools as ft
 
 from airflow.decorators import dag, task
 from airflow.operators.dummy import DummyOperator
-from airflow.utils.trigger_rule import TriggerRule
 from datetime import datetime, timedelta
+from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 
 URL = "https://raw.githubusercontent.com/neylsoncrepalde/titanic_data_with_semicolon/main/titanic.csv"
 
@@ -15,7 +15,7 @@ default_args={
 }
 
 @dag(default_args=default_args,schedule_interval='@once',catchup=False, tags=["Kelly","PUC","dag1"])
-def trabalho2():
+def trabalho2_dag1():
 
     @task
     def ingestao():
@@ -94,22 +94,7 @@ def trabalho2():
 
         return NOME_TABELA
         
-        # PATH_SAIDA = "/tmp/tabela_unica.csv"
-
-        # df1 = pd.read_csv(path1, sep=';')
-        # df2 = pd.read_csv(path2, sep=';')
-        # df3 = pd.read_csv(path3, sep=';')
-
-        # df_final = pd.merge(df1, df2, on=["Sex", "Pclass"])
-        # df_final1 = pd.merge(df_final, df3, on=["Sex", "Pclass"])
-        # df_final1.rename(columns = {'Sex':'sexo'}, inplace = True)
-        # df_final1.rename(columns = {'Pclass':'classe'}, inplace = True)
-        
-        # print(df_final1)
-        # df_final1.to_csv(PATH_SAIDA, index=False, sep=';')
-        # return PATH_SAIDA
-
-
+    
     fim = DummyOperator(task_id="fim")
 
     ing = ingestao()
@@ -118,7 +103,20 @@ def trabalho2():
     ind_ts = ind_total_sibsp_parch_por_sexo_classe(ing)
     me = merge(ind_tp, ind_mp, ind_ts)
 
-    [ind_tp,ind_mp,ind_ts] >> me >> fim
+    trigger_dag2 = TriggerDagRunOperator(
+            task_id='trigger_trabalho2_dag2',
+            trigger_dag_id='trabalho2_dag2'
+        )
 
-execucao = trabalho2()
+    [ind_tp,ind_mp,ind_ts] >> me >> trigger_dag2 >> fim
+
+execucao = trabalho2_dag1()
     
+#
+# python_callable=lambda(context, dag_run_obj):dag_run_obj,
+
+# trigger = TriggerDagRunOperator(
+#         task_id="test_trigger_dagrun",
+#         trigger_dag_id="example_trigger_target_dag",  # Ensure this equals the dag_id of the DAG to trigger
+#         conf={"message": "Hello World"},
+#     )

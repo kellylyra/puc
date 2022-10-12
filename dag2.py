@@ -3,10 +3,7 @@ import functools as ft
 
 from airflow.decorators import dag, task
 from airflow.operators.dummy import DummyOperator
-from airflow.utils.trigger_rule import TriggerRule
 from datetime import datetime, timedelta
-
-URL = "https://raw.githubusercontent.com/neylsoncrepalde/titanic_data_with_semicolon/main/titanic.csv"
 
 default_args={
     'owner':'Kelly',
@@ -15,7 +12,7 @@ default_args={
 }
 
 @dag(default_args=default_args,schedule_interval='@once',catchup=False, tags=["Kelly","PUC","dag2"])
-def trabalho3():
+def trabalho2_dag2():
 
     # 1. Ler a tabela única de indicadores feitos na Dag1 (/tmp/tabela_unica.csv)
     # 3. Printar a tabela nos logs
@@ -46,7 +43,7 @@ def trabalho3():
         return NOME_DO_ARQUIVO
 
 
-    # # 4. Escrever o resultado em um arquivo csv local no container (/tmp/resultados.csv)
+    # 4. Escrever o resultado em um arquivo csv local no container (/tmp/resultados.csv)
     @task
     def resultados(path1):
         PATH_SAIDA = "/tmp/resultados.csv"
@@ -64,7 +61,5 @@ def trabalho3():
     
     ind >> p >> fim
 
-    #ind >> fim
-
-execucao = trabalho3()
+execucao = trabalho2_dag2()
     
