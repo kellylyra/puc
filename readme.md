@@ -9,7 +9,7 @@ https://github.com/kellylyra/puc/blob/master/dag2.py
 3. Imagem (PNG, JPG) com o print da tabela 1 no log
 ![tabela final-dag1](/imagens/resultadofinal_dag1.png "tabela final-dag1")
 
-4.Imagem (PNG, JPG) com o print da tabela 2 no log
+4. Imagem (PNG, JPG) com o print da tabela 2 no log
 ![tabela final-dag2](/imagens/resultadofinal_dag2.png "tabela final-dag2")
 
 5. Imagem com print do grafo da DAG1
